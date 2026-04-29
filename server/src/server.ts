@@ -4,6 +4,10 @@ import { initializeDatabase } from './db/init';
 const port = Number(process.env.PORT) || 5174;
 
 const startServer = async () => {
+  app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
+
   try {
     await initializeDatabase();
     console.log('Database initialized successfully');
@@ -13,10 +17,6 @@ const startServer = async () => {
       error,
     );
   }
-
-  app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-  });
 };
 
 startServer();
