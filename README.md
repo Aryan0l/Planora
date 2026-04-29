@@ -22,12 +22,12 @@ Frontend:
 * CSS
 * JavaScript
 
-Backend (if used):
+Backend :
 
 * Node.js
 * Express.js
 
-Database (if used):
+Database :
 
 * MongoDB / MySQL
 
@@ -91,7 +91,7 @@ http://localhost:3000
 ### About Page
 ![About Page](screenshots/AboutPage1.png)
 
-![About Page](screenshots/AboutPage2.png)
+![About Page2](screenshots/AboutPage2.png)
 
 ## Live Demo
 
