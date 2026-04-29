@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StudyPlan Hub - Collaborative Study Platform</title>
     <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Backend API URL -->
+    <script>
+      window.__STUDYPLAN_API_BASE__ =
+        "https://studyplanhub-backend.onrender.com/api";
+    </script>
   </head>
+
   <body data-page="home">
     <nav class="navbar">
       <div class="navbar-container">
@@ -30,7 +37,9 @@
           <a href="./pages/dashboard.html" class="navbar-item">Dashboard</a>
           <a href="./pages/create-plan.html" class="navbar-item">Create Plan</a>
           <a href="./pages/about.html" class="navbar-item">About</a>
-          <button id="logoutBtn" class="btn btn-secondary" type="button">Logout</button>
+          <button id="logoutBtn" class="btn btn-secondary" type="button">
+            Logout
+          </button>
         </div>
       </div>
     </nav>
@@ -43,13 +52,24 @@
           <span class="eyebrow">Study Smarter Together</span>
           <h1>Build a study rhythm you can actually keep.</h1>
           <p>
-            Discover community-made study plans, follow creators you trust, and turn long
-            learning goals into a clear daily cadence.
+            Discover community-made study plans, follow creators you trust, and
+            turn long learning goals into a clear daily cadence.
           </p>
 
           <div class="hero-actions">
-            <a href="./pages/register.html" class="btn btn-primary btn-large">Start Learning</a>
-            <a href="./pages/create-plan.html" class="btn btn-secondary btn-large">Share a Plan</a>
+            <a
+              href="./pages/register.html"
+              class="btn btn-primary btn-large"
+            >
+              Start Learning
+            </a>
+
+            <a
+              href="./pages/create-plan.html"
+              class="btn btn-secondary btn-large"
+            >
+              Share a Plan
+            </a>
           </div>
 
           <div class="subject-band" aria-label="Popular subjects">
@@ -62,8 +82,13 @@
         </div>
 
         <aside class="hero-visual" aria-label="Study plan preview">
-          <div class="hero-orbit hero-orbit-top">Shared by focused creators</div>
-          <div class="hero-orbit hero-orbit-bottom">Trackable day-by-day progress</div>
+          <div class="hero-orbit hero-orbit-top">
+            Shared by focused creators
+          </div>
+
+          <div class="hero-orbit hero-orbit-bottom">
+            Trackable day-by-day progress
+          </div>
 
           <div class="hero-stage">
             <div class="hero-stage-head">
@@ -71,18 +96,34 @@
                 <span class="hero-stage-kicker">This Week's Flow</span>
                 <strong id="heroPlanCount">Curated Plans</strong>
               </div>
-              <span class="hero-stage-badge">Live community library</span>
+
+              <span class="hero-stage-badge">
+                Live community library
+              </span>
             </div>
 
             <div class="hero-stage-grid">
               <div class="stage-column stage-column-primary">
                 <span class="stage-column-label">Day 04</span>
                 <h3>JavaScript foundations</h3>
+
                 <ul class="stage-task-list">
-                  <li><span class="stage-task-dot"></span>Closures and scope review</li>
-                  <li><span class="stage-task-dot"></span>DOM event practice set</li>
-                  <li><span class="stage-task-dot"></span>20 minute reflection notes</li>
+                  <li>
+                    <span class="stage-task-dot"></span>
+                    Closures and scope review
+                  </li>
+
+                  <li>
+                    <span class="stage-task-dot"></span>
+                    DOM event practice set
+                  </li>
+
+                  <li>
+                    <span class="stage-task-dot"></span>
+                    20 minute reflection notes
+                  </li>
                 </ul>
+
                 <div class="stage-progress">
                   <div class="stage-progress-bar">
                     <span class="stage-progress-fill"></span>
@@ -93,10 +134,12 @@
 
               <div class="stage-column">
                 <span class="stage-column-label">Signals</span>
+
                 <div class="stage-mini-card">
                   <strong>4.8 / 5</strong>
                   <span>Average plan rating</span>
                 </div>
+
                 <div class="stage-mini-card">
                   <strong>214 learners</strong>
                   <span>Following top pathways this week</span>
@@ -112,10 +155,12 @@
           <span class="overview-value">0</span>
           <span class="overview-label">Plans available</span>
         </div>
+
         <div class="overview-card">
           <span class="overview-value">0.0</span>
           <span class="overview-label">Average rating</span>
         </div>
+
         <div class="overview-card">
           <span class="overview-value">0</span>
           <span class="overview-label">Subjects covered</span>
@@ -125,26 +170,38 @@
       <section class="feature-band">
         <div class="section-heading">
           <h2>Why the experience feels easier to stick with</h2>
-          <p>Everything is shaped around momentum, clarity, and visible progress.</p>
+          <p>
+            Everything is shaped around momentum, clarity, and visible
+            progress.
+          </p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card">
             <span class="feature-icon">01</span>
             <h3>Plans feel structured, not overwhelming</h3>
-            <p>Each study path breaks a big goal into daily actions you can finish without guessing what comes next.</p>
+            <p>
+              Each study path breaks a big goal into daily actions you can
+              finish without guessing what comes next.
+            </p>
           </article>
 
           <article class="feature-card">
             <span class="feature-icon">02</span>
             <h3>Community signals help you pick better</h3>
-            <p>Followers, ratings, and subject filters make the strongest plans easier to spot at a glance.</p>
+            <p>
+              Followers, ratings, and subject filters make the strongest plans
+              easier to spot at a glance.
+            </p>
           </article>
 
           <article class="feature-card">
             <span class="feature-icon">03</span>
             <h3>Progress stays visible while you learn</h3>
-            <p>Save completed tasks, return later, and keep the whole plan feeling active instead of forgotten.</p>
+            <p>
+              Save completed tasks, return later, and keep the whole plan
+              feeling active instead of forgotten.
+            </p>
           </article>
         </div>
       </section>
@@ -154,28 +211,38 @@
           <span class="eyebrow">For Learners</span>
           <h2>Open the site and immediately feel where to go next.</h2>
           <p>
-            The homepage now works like a proper front door: clear subject cues, stronger
-            hierarchy, and a more editorial layout that makes the platform feel worth exploring.
+            The homepage now works like a proper front door: clear subject
+            cues, stronger hierarchy, and a more editorial layout that makes
+            the platform feel worth exploring.
           </p>
         </article>
 
         <article class="story-panel">
           <span class="story-stat">30-day</span>
           <h3>Creator-friendly pacing</h3>
-          <p>Publishing a plan now sits inside a calmer, more guided surface with better visual flow.</p>
+          <p>
+            Publishing a plan now sits inside a calmer, more guided surface
+            with better visual flow.
+          </p>
         </article>
 
         <article class="story-panel">
           <span class="story-stat">1 glance</span>
           <h3>Faster plan scanning</h3>
-          <p>Cards lead with subject, rating, duration, and followers so the library is easier to browse quickly.</p>
+          <p>
+            Cards lead with subject, rating, duration, and followers so the
+            library is easier to browse quickly.
+          </p>
         </article>
       </section>
 
       <section class="search-section">
         <div class="section-heading">
           <h2>Find your next plan</h2>
-          <p>Filter by subject and sort by the signals learners care about most.</p>
+          <p>
+            Filter by subject and sort by the signals learners care about
+            most.
+          </p>
         </div>
 
         <div class="search-wrapper">
@@ -207,28 +274,41 @@
             <option value="duration">Shortest duration</option>
           </select>
 
-          <button id="searchBtn" class="btn btn-primary" type="button">Search</button>
+          <button id="searchBtn" class="btn btn-primary" type="button">
+            Search
+          </button>
         </div>
       </section>
 
       <section class="catalog-band">
         <div class="section-heading">
           <h2>Community plans</h2>
-          <p>Browse plans with clear structure, social proof, and trackable outcomes.</p>
+          <p>
+            Browse plans with clear structure, social proof, and trackable
+            outcomes.
+          </p>
         </div>
 
         <div class="plans-grid" id="plansGrid">
           <div class="loading">Loading study plans...</div>
         </div>
       </section>
-    </main>   
+    </main>
 
     <footer class="footer">
       <div class="footer-inner">
-        <span>StudyPlan Hub keeps planning, following, and progress in one place.</span>
+        <span>
+          StudyPlan Hub keeps planning, following, and progress in one place.
+        </span>
+
         <div class="footer-meta">
-          <span class="footer-note">Built for focused learners and generous creators.</span>
-          <span class="footer-credit">Created by ARYAN RAJPUT.</span>
+          <span class="footer-note">
+            Built for focused learners and generous creators.
+          </span>
+
+          <span class="footer-credit">
+            Created by ARYAN RAJPUT.
+          </span>
         </div>
       </div>
     </footer>
