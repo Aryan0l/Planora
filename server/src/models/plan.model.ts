@@ -5,7 +5,7 @@ export interface PlanRecord {
   creator_id: number;
   title: string;
   description: string;
-  category: string;
+  subject: string;
   duration_days: number;
   average_rating: number;
   follower_count: number;
@@ -17,14 +17,14 @@ export const createStudyPlan = async (
   creatorId: number,
   title: string,
   description: string,
-  category: string,
+  subject: string,
   durationDays: number,
 ): Promise<PlanRecord> => {
   const result = await pool.query(
-    `INSERT INTO study_plans (creator_id, title, description, category, duration_days)
+    `INSERT INTO study_plans (creator_id, title, description, subject, duration_days)
      VALUES ($1, $2, $3, $4, $5)
      RETURNING *`,
-    [creatorId, title, description, category, durationDays],
+    [creatorId, title, description, subject, durationDays],
   );
 
   return result.rows[0];
@@ -35,7 +35,7 @@ export const updateStudyPlan = async (
   updates: Partial<{
     title: string;
     description: string;
-    category: string;
+    subject: string;
     durationDays: number;
   }>,
 ): Promise<PlanRecord | null> => {
@@ -50,9 +50,9 @@ export const updateStudyPlan = async (
     fields.push('description = $' + (values.length + 1));
     values.push(updates.description);
   }
-  if (updates.category) {
-    fields.push('category = $' + (values.length + 1));
-    values.push(updates.category);
+  if (updates.subject) {
+    fields.push('subject = $' + (values.length + 1));
+    values.push(updates.subject);
   }
   if (typeof updates.durationDays === 'number') {
     fields.push('duration_days = $' + (values.length + 1));
@@ -91,7 +91,7 @@ export const findPlanOwner = async (planId: number): Promise<number | null> => {
 
 export const listStudyPlans = async (filters: {
   search?: string;
-  category?: string;
+  subject?: string;
   minRating?: number;
   maxDuration?: number;
   sortBy?: 'popular' | 'rating' | 'duration';
@@ -104,9 +104,9 @@ export const listStudyPlans = async (filters: {
     conditions.push('LOWER(title) LIKE $' + values.length);
   }
 
-  if (filters.category) {
-    values.push(filters.category);
-    conditions.push('category = $' + values.length);
+  if (filters.subject) {
+    values.push(filters.subject);
+    conditions.push('subject = $' + values.length);
   }
 
   if (typeof filters.minRating === 'number') {
@@ -128,7 +128,7 @@ export const listStudyPlans = async (filters: {
     orderBy = 'duration_days ASC';
   }
 
-  const query = `SELECT id, title, description, category, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
+  const query = `SELECT id, title, description, subject, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
     FROM study_plans
     ${conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''}
     ORDER BY ${orderBy}`;
@@ -139,7 +139,7 @@ export const listStudyPlans = async (filters: {
 
 export const getPopularStudyPlans = async () => {
   const result = await pool.query(
-    `SELECT id, title, description, category, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
+    `SELECT id, title, description, subject, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
      FROM study_plans
      ORDER BY follower_count DESC, average_rating DESC
      LIMIT 12`,

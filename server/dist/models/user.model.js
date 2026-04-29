@@ -21,17 +21,35 @@ const createUser = async (name, email, password) => {
 };
 exports.createUser = createUser;
 const getUserCreatedPlans = async (userId) => {
-    const result = await db_1.default.query(`SELECT id, title, category, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount"
-     FROM study_plans WHERE creator_id = $1 ORDER BY created_at DESC`, [userId]);
+    const result = await db_1.default.query(`
+    SELECT 
+      id,
+      title,
+      subject AS "category",
+      duration_days AS "durationDays",
+      average_rating AS "averageRating",
+      follower_count AS "followerCount"
+    FROM study_plans
+    WHERE creator_id = $1
+    ORDER BY created_at DESC
+    `, [userId]);
     return result.rows;
 };
 exports.getUserCreatedPlans = getUserCreatedPlans;
 const getUserFollowedPlans = async (userId) => {
-    const result = await db_1.default.query(`SELECT p.id, p.title, p.category, p.duration_days AS "durationDays", p.average_rating AS "averageRating", p.follower_count AS "followerCount"
-     FROM study_plans p
-     JOIN followers f ON f.plan_id = p.id
-     WHERE f.user_id = $1
-     ORDER BY f.created_at DESC`, [userId]);
+    const result = await db_1.default.query(`
+    SELECT 
+      p.id,
+      p.title,
+      p.subject AS "category",
+      p.duration_days AS "durationDays",
+      p.average_rating AS "averageRating",
+      p.follower_count AS "followerCount"
+    FROM study_plans p
+    JOIN followers f ON f.plan_id = p.id
+    WHERE f.user_id = $1
+    ORDER BY f.created_at DESC
+    `, [userId]);
     return result.rows;
 };
 exports.getUserFollowedPlans = getUserFollowedPlans;

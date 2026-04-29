@@ -22,20 +22,31 @@ const taskSchema = joi_1.default.object({
     title: joi_1.default.string().min(1).required(),
     description: joi_1.default.string().allow('').required(),
 });
+const normalizePlanPayload = (value) => {
+    if (!value.subject && typeof value.category === 'string') {
+        value.subject = value.category;
+    }
+    delete value.category;
+    return value;
+};
 exports.planSchema = joi_1.default.object({
     title: joi_1.default.string().min(5).max(200).required(),
     description: joi_1.default.string().min(10).required(),
-    category: joi_1.default.string().min(2).max(100).required(),
+    subject: joi_1.default.string().min(2).max(100),
+    category: joi_1.default.string().min(2).max(100),
     durationDays: joi_1.default.number().integer().min(1).required(),
     tasks: joi_1.default.array().items(taskSchema).min(1).required(),
-});
+})
+    .or('subject', 'category')
+    .custom(normalizePlanPayload);
 exports.planUpdateSchema = joi_1.default.object({
     title: joi_1.default.string().min(5).max(200),
     description: joi_1.default.string().min(10),
+    subject: joi_1.default.string().min(2).max(100),
     category: joi_1.default.string().min(2).max(100),
     durationDays: joi_1.default.number().integer().min(1),
     tasks: joi_1.default.array().items(taskSchema).min(1),
-});
+}).custom(normalizePlanPayload);
 exports.progressSchema = joi_1.default.object({
     completedTaskIds: joi_1.default.array().items(joi_1.default.number().integer().positive()).required(),
 });

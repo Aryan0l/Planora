@@ -17,7 +17,7 @@ export const upsertRating = async (
     `INSERT INTO ratings (user_id, plan_id, rating)
      VALUES ($1, $2, $3)
      ON CONFLICT (user_id, plan_id)
-     DO UPDATE SET rating = EXCLUDED.rating, updated_at = NOW()
+     DO UPDATE SET rating = EXCLUDED.rating
      RETURNING *`,
     [userId, planId, rating],
   );

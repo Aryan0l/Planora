@@ -47,9 +47,14 @@ const createPlan = async (req, res, next) => {
 exports.createPlan = createPlan;
 const getPlans = async (req, res, next) => {
     try {
+        const subjectQuery = typeof req.query.subject === 'string'
+            ? req.query.subject
+            : typeof req.query.category === 'string'
+                ? req.query.category
+                : undefined;
         const plans = await planService.getPlans({
             search: typeof req.query.search === 'string' ? req.query.search : undefined,
-            category: typeof req.query.category === 'string' ? req.query.category : undefined,
+            subject: subjectQuery,
             minRating: req.query.minRating ? Number(req.query.minRating) : undefined,
             maxDuration: req.query.duration ? Number(req.query.duration) : undefined,
             sortBy: typeof req.query.sortBy === 'string' ? req.query.sortBy : undefined,

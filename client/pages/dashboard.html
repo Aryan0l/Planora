@@ -8,53 +8,96 @@
   </head>
   <body data-page="dashboard">
     <nav class="navbar">
-      <div class="container">
+      <div class="navbar-container">
         <div class="navbar-brand">
-          <a href="/">📚 StudyPlan Hub</a>
+          <a href="../index.html" class="brand-link">
+            <span class="brand-mark">SP</span>
+            <span class="brand-copy">
+              <strong>StudyPlan Hub</strong>
+              <span>Structured learning with community momentum</span>
+            </span>
+          </a>
         </div>
+
         <div class="navbar-menu" id="navMenu">
-          <a href="/" class="navbar-item">Home</a>
+          <a href="../index.html" class="navbar-item">Explore</a>
+          <a href="./about.html" class="navbar-item">About</a>
           <a href="./login.html" class="navbar-item">Login</a>
           <a href="./register.html" class="navbar-item">Register</a>
         </div>
+
         <div class="navbar-actions" id="navActions" style="display: none">
           <a href="./dashboard.html" class="navbar-item active">Dashboard</a>
           <a href="./create-plan.html" class="navbar-item">Create Plan</a>
-          <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+          <a href="./about.html" class="navbar-item">About</a>
+          <button id="logoutBtn" class="btn btn-secondary" type="button">Logout</button>
         </div>
       </div>
     </nav>
 
-    <main class="container">
+    <main class="page-shell">
       <div class="message"></div>
 
       <div class="dashboard-header">
-        <h1>Your Dashboard</h1>
-        <a href="./create-plan.html" class="btn btn-primary">+ Create New Plan</a>
+        <div>
+          <span class="eyebrow">Your Workspace</span>
+          <h1>Dashboard</h1>
+          <p>Track what you are publishing, following, and steadily finishing.</p>
+        </div>
+
+        <a href="./create-plan.html" class="btn btn-primary">Create New Plan</a>
       </div>
 
+      <section class="overview-strip" id="dashboardMetrics">
+        <div class="overview-card">
+          <span class="overview-value">0</span>
+          <span class="overview-label">Plans created</span>
+        </div>
+        <div class="overview-card">
+          <span class="overview-value">0</span>
+          <span class="overview-label">Plans followed</span>
+        </div>
+        <div class="overview-card">
+          <span class="overview-value">0</span>
+          <span class="overview-label">Member since</span>
+        </div>
+      </section>
+
       <div class="dashboard-content">
-        <!-- Profile Section -->
         <section class="dashboard-section">
-          <h2>Profile Information</h2>
-          <div id="profileInfo" class="loading">
-            Loading profile...
+          <div class="dashboard-section-header">
+            <div>
+              <h2>Profile</h2>
+              <p class="dashboard-section-subtitle">Your account snapshot and learning footprint.</p>
+            </div>
+          </div>
+
+          <div id="profileInfo" class="loading">Loading profile...</div>
+        </section>
+
+        <section class="dashboard-section">
+          <div class="dashboard-section-header">
+            <div>
+              <h2>Plans You Created</h2>
+              <p class="dashboard-section-subtitle">Plans you have published for the community.</p>
+            </div>
+          </div>
+
+          <div id="createdPlans" class="plans-grid">
+            <div class="loading">Loading your plans...</div>
           </div>
         </section>
 
-        <!-- Created Plans Section -->
         <section class="dashboard-section">
-          <h2>Plans You Created</h2>
-          <div id="createdPlans" class="plans-grid loading">
-            Loading your plans...
+          <div class="dashboard-section-header">
+            <div>
+              <h2>Plans You Follow</h2>
+              <p class="dashboard-section-subtitle">A shortlist of plans you want close at hand.</p>
+            </div>
           </div>
-        </section>
 
-        <!-- Followed Plans Section -->
-        <section class="dashboard-section">
-          <h2>Plans You're Following</h2>
-          <div id="followedPlans" class="plans-grid loading">
-            Loading your followed plans...
+          <div id="followedPlans" class="plans-grid">
+            <div class="loading">Loading followed plans...</div>
           </div>
         </section>
       </div>

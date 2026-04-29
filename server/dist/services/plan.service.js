@@ -40,7 +40,7 @@ const followModel = __importStar(require("../models/follow.model"));
 const progressModel = __importStar(require("../models/progress.model"));
 const ratingModel = __importStar(require("../models/rating.model"));
 const createPlan = async (userId, payload) => {
-    const plan = await planModel.createStudyPlan(userId, payload.title, payload.description, payload.category, payload.durationDays);
+    const plan = await planModel.createStudyPlan(userId, payload.title, payload.description, payload.subject, payload.durationDays);
     const tasks = await taskModel.insertPlanTasks(plan.id, payload.tasks);
     return { ...plan, tasks };
 };
@@ -48,7 +48,7 @@ exports.createPlan = createPlan;
 const getPlans = async (query) => {
     return planModel.listStudyPlans({
         search: query.search,
-        category: query.category,
+        subject: query.subject,
         minRating: query.minRating,
         sortBy: query.sortBy,
         maxDuration: query.maxDuration,

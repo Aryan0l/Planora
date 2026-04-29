@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateAverageRating = exports.updateFollowerCount = exports.getPopularStudyPlans = exports.listStudyPlans = exports.findPlanOwner = exports.findPlanById = exports.deleteStudyPlan = exports.updateStudyPlan = exports.createStudyPlan = void 0;
 const db_1 = __importDefault(require("../config/db"));
-const createStudyPlan = async (creatorId, title, description, category, durationDays) => {
-    const result = await db_1.default.query(`INSERT INTO study_plans (creator_id, title, description, category, duration_days)
+const createStudyPlan = async (creatorId, title, description, subject, durationDays) => {
+    const result = await db_1.default.query(`INSERT INTO study_plans (creator_id, title, description, subject, duration_days)
      VALUES ($1, $2, $3, $4, $5)
-     RETURNING *`, [creatorId, title, description, category, durationDays]);
+     RETURNING *`, [creatorId, title, description, subject, durationDays]);
     return result.rows[0];
 };
 exports.createStudyPlan = createStudyPlan;
@@ -23,9 +23,9 @@ const updateStudyPlan = async (planId, updates) => {
         fields.push('description = $' + (values.length + 1));
         values.push(updates.description);
     }
-    if (updates.category) {
-        fields.push('category = $' + (values.length + 1));
-        values.push(updates.category);
+    if (updates.subject) {
+        fields.push('subject = $' + (values.length + 1));
+        values.push(updates.subject);
     }
     if (typeof updates.durationDays === 'number') {
         fields.push('duration_days = $' + (values.length + 1));
@@ -61,9 +61,9 @@ const listStudyPlans = async (filters) => {
         values.push(`%${filters.search.toLowerCase()}%`);
         conditions.push('LOWER(title) LIKE $' + values.length);
     }
-    if (filters.category) {
-        values.push(filters.category);
-        conditions.push('category = $' + values.length);
+    if (filters.subject) {
+        values.push(filters.subject);
+        conditions.push('subject = $' + values.length);
     }
     if (typeof filters.minRating === 'number') {
         values.push(filters.minRating);
@@ -83,7 +83,7 @@ const listStudyPlans = async (filters) => {
     else if (filters.sortBy === 'duration') {
         orderBy = 'duration_days ASC';
     }
-    const query = `SELECT id, title, description, category, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
+    const query = `SELECT id, title, description, subject, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
     FROM study_plans
     ${conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''}
     ORDER BY ${orderBy}`;
@@ -92,7 +92,7 @@ const listStudyPlans = async (filters) => {
 };
 exports.listStudyPlans = listStudyPlans;
 const getPopularStudyPlans = async () => {
-    const result = await db_1.default.query(`SELECT id, title, description, category, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
+    const result = await db_1.default.query(`SELECT id, title, description, subject, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount", creator_id AS "creatorId"
      FROM study_plans
      ORDER BY follower_count DESC, average_rating DESC
      LIMIT 12`);

@@ -3,184 +3,166 @@ async function testDatabaseSchema() {
 
   console.log('\n=== DATABASE SCHEMA & DATA VALIDATION ===\n');
 
-  let testResults = [];
+  const testResults = [];
 
   try {
-    // Test 1: Register and create test data
     console.log('1. Creating test data in database...');
-    const email = 'db_test_' + Date.now() + '@test.com';
+    const email = `db-test-${Date.now()}@test.com`;
 
     const registerRes = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: 'Database Test User',
-        email: email,
-        password: 'password123'
-      })
+        email,
+        password: 'password123',
+      }),
     });
 
     const userData = await registerRes.json();
     const userId = userData.data.id;
-    console.log(`✓ Created user ID: ${userId}`);
+    console.log(`Created user ID: ${userId}`);
 
-    // Login to get token
     const loginRes = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: email,
-        password: 'password123'
-      })
+        email,
+        password: 'password123',
+      }),
     });
 
     const loginData = await loginRes.json();
     const token = loginData.data.accessToken;
 
-    // Test 2: Create a study plan
     console.log('\n2. Creating study plan...');
     const planRes = await fetch(`${API_BASE}/plans`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title: 'DB Test Plan',
         description: 'A database test study plan',
-        category: 'Science',
+        subject: 'Science',
         durationDays: 5,
         tasks: [
           { day: 1, title: 'Task 1', description: 'First task' },
-          { day: 2, title: 'Task 2', description: 'Second task' }
-        ]
-      })
+          { day: 2, title: 'Task 2', description: 'Second task' },
+        ],
+      }),
     });
 
     const planData = await planRes.json();
     const planId = planData.data.id;
-    console.log(`✓ Created plan ID: ${planId}`);
+    console.log(`Created plan ID: ${planId}`);
     testResults.push({ test: 'Create User', pass: true });
     testResults.push({ test: 'Create Plan', pass: true });
 
-    // Test 3: Verify data retrieval
     console.log('\n3. Verifying data retrieval...');
-    
-    // Get user profile
     const profileRes = await fetch(`${API_BASE}/users/me`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
     const profileData = await profileRes.json();
-    console.log(`✓ User profile retrieved: ${profileData.data.name}`);
+    console.log(`User profile retrieved: ${profileData.data.name}`);
     testResults.push({ test: 'Retrieve User Profile', pass: profileRes.ok });
 
-    // Get plan
     const getPlanRes = await fetch(`${API_BASE}/plans/${planId}`);
     const getPlanData = await getPlanRes.json();
-    console.log(`✓ Plan retrieved: ${getPlanData.data.title}`);
-    console.log(`  - Category: ${getPlanData.data.category}`);
+    console.log(`Plan retrieved: ${getPlanData.data.title}`);
+    console.log(`  - Subject: ${getPlanData.data.subject || getPlanData.data.category}`);
     console.log(`  - Tasks: ${getPlanData.data.tasks.length}`);
     testResults.push({ test: 'Retrieve Plan', pass: getPlanRes.ok });
 
-    // Test 4: Test relationships
     console.log('\n4. Testing data relationships...');
-
-    // Follow the plan
     const followRes = await fetch(`${API_BASE}/plans/${planId}/follow`, {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(`✓ Followed plan`);
+    console.log('Followed plan');
     testResults.push({ test: 'Follow Plan', pass: followRes.ok });
 
-    // Rate the plan
     const rateRes = await fetch(`${API_BASE}/plans/${planId}/rating`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ rating: 4 })
+      body: JSON.stringify({ rating: 4 }),
     });
     const rateData = await rateRes.json();
-    console.log(`✓ Rated plan: ${rateData.data.rating} stars`);
+    console.log(`Rated plan: ${rateData.data.rating} stars`);
     console.log(`  - Average rating: ${rateData.data.averageRating}`);
     testResults.push({ test: 'Rate Plan', pass: rateRes.ok });
 
-    // Update progress
     const progressRes = await fetch(`${API_BASE}/plans/${planId}/progress`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ completedTaskIds: [getPlanData.data.tasks[0].id] })
+      body: JSON.stringify({ completedTaskIds: [getPlanData.data.tasks[0].id] }),
     });
     const progressData = await progressRes.json();
-    console.log(`✓ Updated progress`);
+    console.log('Updated progress');
     console.log(`  - Completed tasks: ${progressData.data.completedTaskIds.length}`);
     console.log(`  - Completion rate: ${progressData.data.completionRate}%`);
     testResults.push({ test: 'Update Progress', pass: progressRes.ok });
 
-    // Test 5: Verify data integrity
     console.log('\n5. Verifying data integrity...');
-
-    // Get all plans (should include created plan)
     const allPlansRes = await fetch(`${API_BASE}/plans`);
     const allPlansData = await allPlansRes.json();
-    const createdPlan = allPlansData.data.find(p => p.id === planId);
-    
+    const createdPlan = allPlansData.data.find((plan) => plan.id === planId);
+
     if (createdPlan) {
-      console.log(`✓ Plan found in all plans list`);
+      console.log('Plan found in all plans list');
       console.log(`  - Follower count: ${createdPlan.followerCount}`);
       console.log(`  - Average rating: ${createdPlan.averageRating}`);
       testResults.push({ test: 'Plan in List', pass: true });
     } else {
-      console.log(`✗ Plan not found in all plans list`);
+      console.log('Plan not found in all plans list');
       testResults.push({ test: 'Plan in List', pass: false });
     }
 
-    // Test 6: Test data validation
     console.log('\n6. Testing data validation...');
-
-    // Try invalid rating
     const invalidRateRes = await fetch(`${API_BASE}/plans/${planId}/rating`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ rating: 10 })
+      body: JSON.stringify({ rating: 10 }),
     });
-    console.log(`✓ Invalid rating rejected: ${invalidRateRes.status}`);
+    console.log(`Invalid rating rejected: ${invalidRateRes.status}`);
     testResults.push({ test: 'Validation - Rating Range', pass: !invalidRateRes.ok });
 
-    // Try duplicate rating (should fail or replace)
     const dupRateRes = await fetch(`${API_BASE}/plans/${planId}/rating`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ rating: 5 })
+      body: JSON.stringify({ rating: 5 }),
     });
-    console.log(`✓ Duplicate rating handled: ${dupRateRes.status}`);
+    console.log(`Duplicate rating handled: ${dupRateRes.status}`);
     testResults.push({ test: 'Duplicate Prevention', pass: dupRateRes.ok });
 
-    // Print Summary
     console.log('\n\n=== DATABASE TEST SUMMARY ===\n');
     let passCount = 0;
     let failCount = 0;
-    testResults.forEach(result => {
-      const status = result.pass ? '✓ PASS' : '✗ FAIL';
+    testResults.forEach((result) => {
+      const status = result.pass ? 'PASS' : 'FAIL';
       console.log(`${status}: ${result.test}`);
-      if (result.pass) passCount++;
-      else failCount++;
+      if (result.pass) {
+        passCount += 1;
+      } else {
+        failCount += 1;
+      }
     });
     console.log(`\nTotal: ${passCount} passed, ${failCount} failed`);
-
   } catch (error) {
-    console.error('\n❌ ERROR:', error.message);
+    console.error('\nERROR:', error.message);
   }
 }
 

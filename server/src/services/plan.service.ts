@@ -9,7 +9,7 @@ export const createPlan = async (
   payload: {
     title: string;
     description: string;
-    category: string;
+    subject: string;
     durationDays: number;
     tasks: Array<{ day: number; title: string; description: string }>;
   },
@@ -18,7 +18,7 @@ export const createPlan = async (
     userId,
     payload.title,
     payload.description,
-    payload.category,
+    payload.subject,
     payload.durationDays,
   );
 
@@ -28,14 +28,14 @@ export const createPlan = async (
 
 export const getPlans = async (query: {
   search?: string;
-  category?: string;
+  subject?: string;
   minRating?: number;
   sortBy?: string;
   maxDuration?: number;
 }) => {
   return planModel.listStudyPlans({
     search: query.search,
-    category: query.category,
+    subject: query.subject,
     minRating: query.minRating,
     sortBy: query.sortBy as 'popular' | 'rating' | 'duration' | undefined,
     maxDuration: query.maxDuration,
@@ -62,7 +62,7 @@ export const updatePlan = async (
   updates: Partial<{
     title: string;
     description: string;
-    category: string;
+    subject: string;
     durationDays: number;
     tasks: Array<{ day: number; title: string; description: string }>;
   }>,

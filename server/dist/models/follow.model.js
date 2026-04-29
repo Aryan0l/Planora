@@ -13,7 +13,7 @@ exports.isFollowingPlan = isFollowingPlan;
 const addFollower = async (userId, planId) => {
     await db_1.default.query(`INSERT INTO followers (user_id, plan_id)
      VALUES ($1, $2)
-     ON CONFLICT DO NOTHING`, [userId, planId]);
+     ON CONFLICT (user_id, plan_id) DO NOTHING`, [userId, planId]);
 };
 exports.addFollower = addFollower;
 const removeFollower = async (userId, planId) => {

@@ -12,7 +12,7 @@ export const addFollower = async (userId: number, planId: number) => {
   await pool.query(
     `INSERT INTO followers (user_id, plan_id)
      VALUES ($1, $2)
-     ON CONFLICT DO NOTHING`,
+     ON CONFLICT (user_id, plan_id) DO NOTHING`,
     [userId, planId],
   );
 };

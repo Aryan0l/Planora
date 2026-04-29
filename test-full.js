@@ -1,26 +1,24 @@
 async function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function testAPI() {
   const baseURL = 'http://localhost:5174/api';
-  const email = 'test' + Date.now() + '@example.com';
-  let testResults = [];
+  const email = `test-${Date.now()}@example.com`;
+  const testResults = [];
 
   try {
-    // ===== AUTH TESTS =====
     console.log('\n=== AUTH TESTS ===\n');
 
-    // Register
     console.log('1. Testing Register...');
     const registerRes = await fetch(`${baseURL}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: 'Test User',
-        email: email,
-        password: 'password123'
-      })
+        email,
+        password: 'password123',
+      }),
     });
     console.log('Status:', registerRes.status);
     const registerData = await registerRes.json();
@@ -32,15 +30,14 @@ async function testAPI() {
       return;
     }
 
-    // Login
     console.log('\n2. Testing Login...');
     const loginRes = await fetch(`${baseURL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: email,
-        password: 'password123'
-      })
+        email,
+        password: 'password123',
+      }),
     });
     console.log('Status:', loginRes.status);
     const loginData = await loginRes.json();
@@ -53,42 +50,36 @@ async function testAPI() {
     }
 
     const token = loginData.data.accessToken;
-    console.log('\n✓ Auth token obtained');
+    console.log('\nToken obtained');
 
-    // ===== USER TESTS =====
     console.log('\n=== USER TESTS ===\n');
-
-    // Get Profile
     console.log('3. Testing Get User Profile...');
     const profileRes = await fetch(`${baseURL}/users/me`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
     console.log('Status:', profileRes.status);
     const profileData = await profileRes.json();
     console.log('Response:', JSON.stringify(profileData, null, 2));
     testResults.push({ test: 'Get Profile', status: profileRes.status, pass: profileRes.status === 200 });
 
-    // ===== PLAN TESTS =====
     console.log('\n=== PLAN TESTS ===\n');
-
-    // Create Plan
     console.log('4. Testing Create Plan...');
     const createPlanRes = await fetch(`${baseURL}/plans`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title: 'Test Study Plan',
         description: 'A comprehensive test study plan',
-        category: 'Mathematics',
+        subject: 'Mathematics',
         durationDays: 7,
         tasks: [
           { day: 1, title: 'Algebra Basics', description: 'Learn algebra fundamentals' },
-          { day: 2, title: 'Geometry', description: 'Learn geometry concepts' }
-        ]
-      })
+          { day: 2, title: 'Geometry', description: 'Learn geometry concepts' },
+        ],
+      }),
     });
     console.log('Status:', createPlanRes.status);
     const createPlanData = await createPlanRes.json();
@@ -99,11 +90,10 @@ async function testAPI() {
       console.log('CREATE PLAN FAILED - CONTINUING WITH OTHER TESTS');
     } else {
       const planId = createPlanData.data.id;
-      console.log('\n✓ Plan created with ID:', planId);
+      console.log('\nPlan created with ID:', planId);
 
       await sleep(1000);
 
-      // Get All Plans
       console.log('\n5. Testing Get All Plans...');
       const getPlansRes = await fetch(`${baseURL}/plans`);
       console.log('Status:', getPlansRes.status);
@@ -111,7 +101,6 @@ async function testAPI() {
       console.log('Response:', JSON.stringify(getPlansData, null, 2).substring(0, 200) + '...');
       testResults.push({ test: 'Get All Plans', status: getPlansRes.status, pass: getPlansRes.status === 200 });
 
-      // Get Single Plan
       console.log('\n6. Testing Get Single Plan...');
       const getPlanRes = await fetch(`${baseURL}/plans/${planId}`);
       console.log('Status:', getPlanRes.status);
@@ -121,11 +110,10 @@ async function testAPI() {
 
       await sleep(1000);
 
-      // Follow Plan
       console.log('\n7. Testing Follow Plan...');
       const followRes = await fetch(`${baseURL}/plans/${planId}/follow`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       console.log('Status:', followRes.status);
       const followData = await followRes.json();
@@ -134,15 +122,14 @@ async function testAPI() {
 
       await sleep(1000);
 
-      // Update Progress
       console.log('\n8. Testing Update Progress...');
       const progressRes = await fetch(`${baseURL}/plans/${planId}/progress`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ completedTaskIds: [1] })
+        body: JSON.stringify({ completedTaskIds: [getPlanData.data.tasks[0].id] }),
       });
       console.log('Status:', progressRes.status);
       const progressData = await progressRes.json();
@@ -151,15 +138,14 @@ async function testAPI() {
 
       await sleep(1000);
 
-      // Rate Plan
       console.log('\n9. Testing Rate Plan...');
       const rateRes = await fetch(`${baseURL}/plans/${planId}/rating`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ rating: 5 })
+        body: JSON.stringify({ rating: 5 }),
       });
       console.log('Status:', rateRes.status);
       const rateData = await rateRes.json();
@@ -168,15 +154,14 @@ async function testAPI() {
 
       await sleep(1000);
 
-      // Update Plan
       console.log('\n10. Testing Update Plan...');
       const updateRes = await fetch(`${baseURL}/plans/${planId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ title: 'Updated Test Study Plan' })
+        body: JSON.stringify({ title: 'Updated Test Study Plan' }),
       });
       console.log('Status:', updateRes.status);
       const updateData = await updateRes.json();
@@ -185,32 +170,32 @@ async function testAPI() {
 
       await sleep(1000);
 
-      // Delete Plan
       console.log('\n11. Testing Delete Plan...');
       const deleteRes = await fetch(`${baseURL}/plans/${planId}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       console.log('Status:', deleteRes.status);
-      const deleteData = deleteRes.status !== 204 ? await deleteRes.json() : { success: true };
+      const deleteData = deleteRes.status === 204 ? { success: true } : await deleteRes.json();
       console.log('Response:', JSON.stringify(deleteData, null, 2));
       testResults.push({ test: 'Delete Plan', status: deleteRes.status, pass: deleteRes.status === 200 || deleteRes.status === 204 });
     }
 
-    // Print Summary
     console.log('\n\n=== TEST SUMMARY ===\n');
     let passCount = 0;
     let failCount = 0;
-    testResults.forEach(result => {
-      const status = result.pass ? '✓ PASS' : '✗ FAIL';
+    testResults.forEach((result) => {
+      const status = result.pass ? 'PASS' : 'FAIL';
       console.log(`${status}: ${result.test} (${result.status})`);
-      if (result.pass) passCount++;
-      else failCount++;
+      if (result.pass) {
+        passCount += 1;
+      } else {
+        failCount += 1;
+      }
     });
     console.log(`\nTotal: ${passCount} passed, ${failCount} failed`);
-
   } catch (error) {
-    console.error('\n❌ ERROR:', error.message);
+    console.error('\nERROR:', error.message);
   }
 }
 

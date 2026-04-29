@@ -42,10 +42,9 @@ CREATE TABLE progress (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   plan_id INTEGER NOT NULL REFERENCES study_plans(id) ON DELETE CASCADE,
-  task_id INTEGER NOT NULL REFERENCES plan_tasks(id) ON DELETE CASCADE,
-  completed BOOLEAN NOT NULL DEFAULT true,
+  completed_task_ids INTEGER[] NOT NULL DEFAULT '{}',
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  UNIQUE (user_id, plan_id, task_id)
+  UNIQUE (user_id, plan_id)
 );
 
 CREATE TABLE ratings (

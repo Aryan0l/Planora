@@ -8,13 +8,25 @@ export interface UserRecord {
   created_at: string;
 }
 
-export const findUserByEmail = async (email: string): Promise<UserRecord | null> => {
-  const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+export const findUserByEmail = async (
+  email: string,
+): Promise<UserRecord | null> => {
+  const result = await pool.query(
+    'SELECT * FROM users WHERE email = $1',
+    [email],
+  );
+
   return result.rows[0] || null;
 };
 
-export const findUserById = async (userId: number): Promise<UserRecord | null> => {
-  const result = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
+export const findUserById = async (
+  userId: number,
+): Promise<UserRecord | null> => {
+  const result = await pool.query(
+    'SELECT * FROM users WHERE id = $1',
+    [userId],
+  );
+
   return result.rows[0] || null;
 };
 
@@ -33,8 +45,18 @@ export const createUser = async (
 
 export const getUserCreatedPlans = async (userId: number) => {
   const result = await pool.query(
-    `SELECT id, title, category, duration_days AS "durationDays", average_rating AS "averageRating", follower_count AS "followerCount"
-     FROM study_plans WHERE creator_id = $1 ORDER BY created_at DESC`,
+    `
+    SELECT 
+      id,
+      title,
+      subject AS "category",
+      duration_days AS "durationDays",
+      average_rating AS "averageRating",
+      follower_count AS "followerCount"
+    FROM study_plans
+    WHERE creator_id = $1
+    ORDER BY created_at DESC
+    `,
     [userId],
   );
 
@@ -43,11 +65,19 @@ export const getUserCreatedPlans = async (userId: number) => {
 
 export const getUserFollowedPlans = async (userId: number) => {
   const result = await pool.query(
-    `SELECT p.id, p.title, p.category, p.duration_days AS "durationDays", p.average_rating AS "averageRating", p.follower_count AS "followerCount"
-     FROM study_plans p
-     JOIN followers f ON f.plan_id = p.id
-     WHERE f.user_id = $1
-     ORDER BY f.created_at DESC`,
+    `
+    SELECT 
+      p.id,
+      p.title,
+      p.subject AS "category",
+      p.duration_days AS "durationDays",
+      p.average_rating AS "averageRating",
+      p.follower_count AS "followerCount"
+    FROM study_plans p
+    JOIN followers f ON f.plan_id = p.id
+    WHERE f.user_id = $1
+    ORDER BY f.created_at DESC
+    `,
     [userId],
   );
 

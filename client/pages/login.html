@@ -8,61 +8,77 @@
   </head>
   <body data-page="login">
     <nav class="navbar">
-      <div class="container">
+      <div class="navbar-container">
         <div class="navbar-brand">
-          <a href="/">📚 StudyPlan Hub</a>
+          <a href="../index.html" class="brand-link">
+            <span class="brand-mark">SP</span>
+            <span class="brand-copy">
+              <strong>StudyPlan Hub</strong>
+              <span>Structured learning with community momentum</span>
+            </span>
+          </a>
         </div>
+
         <div class="navbar-menu" id="navMenu">
-          <a href="/" class="navbar-item">Home</a>
+          <a href="../index.html" class="navbar-item">Explore</a>
+          <a href="./about.html" class="navbar-item">About</a>
           <a href="./login.html" class="navbar-item active">Login</a>
           <a href="./register.html" class="navbar-item">Register</a>
         </div>
       </div>
     </nav>
 
-    <main class="container">
-      <div class="auth-page">
-        <div class="auth-card">
-          <h1>Welcome Back</h1>
-          <p class="auth-subtitle">Login to continue learning with StudyPlan Hub</p>
+    <main class="page-shell compact">
+      <div class="auth-layout">
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Welcome Back</span>
+            <h1>Pick up your learning streak where you left it.</h1>
+            <p>
+              Re-enter your dashboard, manage saved plans, and keep your daily progress
+              moving without losing context.
+            </p>
+          </div>
+
+          <aside class="hero-panel">
+            <div class="auth-feature">
+              <strong>Your plans stay organized</strong>
+              <span>Created plans, followed plans, and progress all live in one calm workspace.</span>
+            </div>
+            <div class="auth-feature">
+              <strong>Progress stays visible</strong>
+              <span>Return to the exact tasks you already completed and keep your cadence intact.</span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="auth-card">
+          <h1>Login</h1>
+          <p class="auth-subtitle">Sign in to continue learning with StudyPlan Hub.</p>
 
           <div class="message"></div>
 
           <form id="loginForm" class="auth-form">
             <div class="form-group">
               <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="your@email.com"
-                required
-              />
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
             </div>
 
             <div class="form-group">
               <label for="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="••••••••"
-                required
-              />
+              <input type="password" id="password" name="password" placeholder="Enter your password" required />
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">
-              Login
-            </button>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
           </form>
 
           <div class="auth-footer">
             <p>
-              Don't have an account?
-              <a href="./register.html">Register here</a>
+              New here?
+              <a href="./register.html">Create your account</a>
             </p>
           </div>
-        </div>
+        </section>
       </div>
     </main>
 

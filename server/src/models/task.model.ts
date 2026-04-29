@@ -24,7 +24,7 @@ export const insertPlanTasks = async (
   });
 
   const result = await pool.query(
-    `INSERT INTO tasks (plan_id, day_number, title, description)
+    `INSERT INTO plan_tasks (plan_id, day_number, title, description)
      VALUES ${inserts.join(', ')} RETURNING *`,
     values,
   );
@@ -35,7 +35,7 @@ export const insertPlanTasks = async (
 export const getPlanTasks = async (planId: number) => {
   const result = await pool.query(
     `SELECT id, day_number AS day, title, description
-     FROM tasks
+     FROM plan_tasks
      WHERE plan_id = $1
      ORDER BY day_number ASC`,
     [planId],
@@ -44,10 +44,10 @@ export const getPlanTasks = async (planId: number) => {
 };
 
 export const deletePlanTasks = async (planId: number) => {
-  await pool.query('DELETE FROM tasks WHERE plan_id = $1', [planId]);
+  await pool.query('DELETE FROM plan_tasks WHERE plan_id = $1', [planId]);
 };
 
 export const countPlanTasks = async (planId: number) => {
-  const result = await pool.query('SELECT COUNT(*) FROM tasks WHERE plan_id = $1', [planId]);
+  const result = await pool.query('SELECT COUNT(*) FROM plan_tasks WHERE plan_id = $1', [planId]);
   return Number(result.rows[0]?.count || 0);
 };
