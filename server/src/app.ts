@@ -8,7 +8,7 @@ import planRoutes from './routes/plan.routes';
 import followRoutes from './routes/follow.routes';
 import progressRoutes from './routes/progress.routes';
 import ratingRoutes from './routes/rating.routes';
-import pool from './config/db';
+import pool, { getDatabaseConnectionInfo } from './config/db';
 
 import { rateLimiter } from './middleware/rateLimit.middleware';
 import { errorHandler } from './middleware/error.middleware';
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(rateLimiter);
 
 app.get('/api/health', async (req, res) => {
-  const databaseConfigured = Boolean(process.env.DATABASE_URL || process.env.CONNECTION_URL);
+  const databaseInfo = getDatabaseConnectionInfo();
 
   try {
     await pool.query('SELECT 1');
@@ -35,20 +35,27 @@ app.get('/api/health', async (req, res) => {
       success: true,
       status: 'ok',
       database: {
-        configured: databaseConfigured,
+        ...databaseInfo,
         connected: true,
       },
     });
   } catch (error) {
+    const connectionError = error as { code?: string; errors?: Array<{ code?: string }> };
+    const codes = [
+      connectionError.code,
+      ...(connectionError.errors || []).map((nestedError) => nestedError.code),
+    ].filter(Boolean);
+
     res.status(503).json({
       success: false,
       status: 'degraded',
-      message: databaseConfigured
+      message: databaseInfo.configured
         ? 'Database connection failed. Check the backend DATABASE_URL and DATABASE_SSL settings on Render.'
         : 'Database connection is not configured. Add DATABASE_URL to the backend service environment on Render.',
       database: {
-        configured: databaseConfigured,
+        ...databaseInfo,
         connected: false,
+        errorCodes: [...new Set(codes)],
       },
     });
   }

@@ -8,8 +8,10 @@ const normalizeConnectionString = (value?: string) => {
     return value;
   }
 
+  const trimmedValue = value.trim().replace(/^['"]|['"]$/g, '');
+
   try {
-    const url = new URL(value);
+    const url = new URL(trimmedValue);
     const sslMode = url.searchParams.get('sslmode');
     const hasCompatFlag = url.searchParams.has('uselibpqcompat');
 
@@ -18,10 +20,10 @@ const normalizeConnectionString = (value?: string) => {
       return url.toString();
     }
   } catch {
-    return value;
+    return trimmedValue;
   }
 
-  return value;
+  return trimmedValue;
 };
 
 const connectionString = normalizeConnectionString(
@@ -29,19 +31,48 @@ const connectionString = normalizeConnectionString(
 );
 
 const shouldUseSsl = () => {
-  if (process.env.DATABASE_SSL === 'true') {
-    return true;
-  }
-
-  if (process.env.DATABASE_SSL === 'false' || !connectionString) {
+  if (!connectionString) {
     return false;
   }
 
   try {
     const url = new URL(connectionString);
-    return url.searchParams.get('sslmode') === 'require' || url.hostname.includes('neon.tech');
+    const sslMode = url.searchParams.get('sslmode');
+
+    if (sslMode === 'require' || url.hostname.includes('neon.tech')) {
+      return true;
+    }
   } catch {
-    return false;
+    return process.env.DATABASE_SSL === 'true';
+  }
+
+  return process.env.DATABASE_SSL === 'true';
+};
+
+export const getDatabaseConnectionInfo = () => {
+  if (!connectionString) {
+    return {
+      configured: false,
+      host: null,
+      ssl: false,
+    };
+  }
+
+  try {
+    const url = new URL(connectionString);
+    return {
+      configured: true,
+      host: url.hostname,
+      database: url.pathname.replace(/^\//, '') || null,
+      ssl: shouldUseSsl(),
+    };
+  } catch {
+    return {
+      configured: true,
+      host: 'invalid-url',
+      database: null,
+      ssl: shouldUseSsl(),
+    };
   }
 };
 
