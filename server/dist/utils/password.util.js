@@ -11,6 +11,11 @@ const hashPassword = async (plainText) => {
 };
 exports.hashPassword = hashPassword;
 const comparePassword = async (plainText, hashedPassword) => {
-    return bcrypt_1.default.compare(plainText, hashedPassword);
+    try {
+        return await bcrypt_1.default.compare(plainText, hashedPassword);
+    }
+    catch {
+        return false;
+    }
 };
 exports.comparePassword = comparePassword;
