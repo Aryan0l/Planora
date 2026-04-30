@@ -75,8 +75,8 @@ node tests\frontend-assets.js
 Use deployed URLs when needed:
 
 ```powershell
-$env:API_BASE_URL = "https://studyplanhub-backend.onrender.com/api"
-$env:FRONTEND_URL = "https://studyplanhub-frontend.onrender.com"
+$env:API_BASE_URL = "https://planora-paui-backend.onrender.com/api"
+$env:FRONTEND_URL = "https://planora-paui.onrender.com"
 node tests\frontend-assets.js
 ```
 
@@ -117,11 +117,11 @@ http://localhost:5174/api
 
 ## Live Demo
 
-Frontend: https://studyplanhub-frontend.onrender.com
+Frontend: https://planora-paui.onrender.com
 
-Backend: https://studyplanhub-backend.onrender.com
+Backend: https://planora-paui-backend.onrender.com
 
-Health check: https://studyplanhub-backend.onrender.com/api/health
+Health check: https://planora-paui-backend.onrender.com/api/health
 
 ---
 

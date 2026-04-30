@@ -1,5 +1,5 @@
 const LOGIN_PAGE = window.location.pathname.includes('/pages/') ? './signin.html' : './pages/signin.html';
-const DEFAULT_REMOTE_API_BASE = 'https://studyplanhub-backend.onrender.com/api';
+const DEFAULT_REMOTE_API_BASE = 'https://planora-paui-backend.onrender.com/api';
 
 function normalizeApiBase(base) {
   return String(base || '').trim().replace(/\/+$/, '');

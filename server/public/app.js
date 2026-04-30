@@ -1,4 +1,4 @@
-const DEFAULT_REMOTE_API_BASE = 'https://studyplanhub-backend.onrender.com/api';
+const DEFAULT_REMOTE_API_BASE = 'https://planora-paui-backend.onrender.com/api';
 const isLocalHostname = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 const API_BASE = window.__STUDYPLAN_API_BASE__
   || (isLocalHostname ? '/api' : DEFAULT_REMOTE_API_BASE);

@@ -13,6 +13,6 @@ node tests\frontend-assets.js
 Optional environment overrides:
 
 ```powershell
-$env:API_BASE_URL = "https://studyplanhub-backend.onrender.com/api"
-$env:FRONTEND_URL = "https://studyplanhub-frontend.onrender.com"
+$env:API_BASE_URL = "https://planora-paui-backend.onrender.com/api"
+$env:FRONTEND_URL = "https://planora-paui.onrender.com"
 ```
