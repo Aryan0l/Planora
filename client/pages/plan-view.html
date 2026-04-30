@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan Details - StudyPlan Hub</title>
+    <link rel="stylesheet" href="../assets/styles/studyplan-theme.css" />
+  </head>
+  <body data-page="plan-view">
+    <nav class="topline">
+      <div class="topline-shell">
+        <div class="identity-block">
+          <a href="../index.html" class="identity-link">
+            <span class="identity-mark">SP</span>
+            <span class="identity-copy">
+              <strong>StudyPlan Hub</strong>
+              <span>Structured learning with community momentum</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="guest-links" id="guestNav">
+          <a href="../index.html" class="nav-link">Explore</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <a href="./signin.html" class="nav-link">Login</a>
+          <a href="./join.html" class="nav-link">Register</a>
+        </div>
+
+        <div class="member-actions" id="memberNav" style="display: none">
+          <a href="./workspace.html" class="nav-link">Dashboard</a>
+          <a href="./planner.html" class="nav-link">Create Plan</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <button id="signoutBtn" class="btn btn-secondary" type="button">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <div class="message"></div>
+      <div id="studyDetail" class="study-page">
+        <div class="loading">Loading plan details...</div>
+      </div>
+    </main>
+
+    <script src="../assets/scripts/services/studyplanGateway.js"></script>
+    <script src="../assets/scripts/pages/workspace.js"></script>
+  </body>
+</html>

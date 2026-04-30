@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - StudyPlan Hub</title>
+    <link rel="stylesheet" href="../assets/styles/studyplan-theme.css" />
+  </head>
+  <body data-page="workspace">
+    <nav class="topline">
+      <div class="topline-shell">
+        <div class="identity-block">
+          <a href="../index.html" class="identity-link">
+            <span class="identity-mark">SP</span>
+            <span class="identity-copy">
+              <strong>StudyPlan Hub</strong>
+              <span>Structured learning with community momentum</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="guest-links" id="guestNav">
+          <a href="../index.html" class="nav-link">Explore</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <a href="./signin.html" class="nav-link">Login</a>
+          <a href="./join.html" class="nav-link">Register</a>
+        </div>
+
+        <div class="member-actions" id="memberNav" style="display: none">
+          <a href="./workspace.html" class="nav-link active">Dashboard</a>
+          <a href="./planner.html" class="nav-link">Create Plan</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <button id="signoutBtn" class="btn btn-secondary" type="button">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <div class="message"></div>
+
+      <div class="studio-header">
+        <div>
+          <span class="eyebrow">Your Workspace</span>
+          <h1>Dashboard</h1>
+          <p>Track what you are publishing, following, and steadily finishing.</p>
+        </div>
+
+        <a href="./planner.html" class="btn btn-primary">Create New Plan</a>
+      </div>
+
+      <section class="overview-strip" id="studioMetrics">
+        <div class="overview-card">
+          <span class="overview-value">0</span>
+          <span class="overview-label">Plans created</span>
+        </div>
+        <div class="overview-card">
+          <span class="overview-value">0</span>
+          <span class="overview-label">Plans followed</span>
+        </div>
+        <div class="overview-card">
+          <span class="overview-value">0</span>
+          <span class="overview-label">Member since</span>
+        </div>
+      </section>
+
+      <div class="studio-content">
+        <section class="studio-section">
+          <div class="studio-section-header">
+            <div>
+              <h2>Profile</h2>
+              <p class="studio-section-subtitle">Your account snapshot and learning footprint.</p>
+            </div>
+          </div>
+
+          <div id="learnerInfo" class="loading">Loading profile...</div>
+        </section>
+
+        <section class="studio-section">
+          <div class="studio-section-header">
+            <div>
+              <h2>Plans You Created</h2>
+              <p class="studio-section-subtitle">Plans you have published for the community.</p>
+            </div>
+          </div>
+
+          <div id="ownedPlans" class="study-grid">
+            <div class="loading">Loading your plans...</div>
+          </div>
+        </section>
+
+        <section class="studio-section">
+          <div class="studio-section-header">
+            <div>
+              <h2>Plans You Follow</h2>
+              <p class="studio-section-subtitle">A shortlist of plans you want close at hand.</p>
+            </div>
+          </div>
+
+          <div id="savedPlans" class="study-grid">
+            <div class="loading">Loading followed plans...</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="../assets/scripts/services/studyplanGateway.js"></script>
+    <script src="../assets/scripts/pages/workspace.js"></script>
+  </body>
+</html>

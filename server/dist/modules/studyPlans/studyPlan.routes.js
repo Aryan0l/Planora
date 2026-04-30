@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const requireUser_1 = require("../../http/middleware/requireUser");
+const validatePayload_1 = require("../../http/middleware/validatePayload");
+const studyPlan_controller_1 = require("./studyPlan.controller");
+const schemas_1 = require("../../shared/validation/schemas");
+const router = express_1.default.Router();
+router.get('/', studyPlan_controller_1.getPlans);
+router.get('/popular', studyPlan_controller_1.getPopularPlans);
+router.get('/:planId', studyPlan_controller_1.getPlanById);
+router.post('/', requireUser_1.authenticate, (0, validatePayload_1.validateBody)(schemas_1.planSchema), studyPlan_controller_1.createPlan);
+router.put('/:planId', requireUser_1.authenticate, (0, validatePayload_1.validateBody)(schemas_1.planUpdateSchema), studyPlan_controller_1.updatePlan);
+router.delete('/:planId', requireUser_1.authenticate, studyPlan_controller_1.deletePlan);
+router.post('/:planId/follow', requireUser_1.authenticate, studyPlan_controller_1.followPlan);
+router.delete('/:planId/follow', requireUser_1.authenticate, studyPlan_controller_1.unfollowPlan);
+router.get('/:planId/progress', requireUser_1.authenticate, studyPlan_controller_1.getPlanProgress);
+router.post('/:planId/progress', requireUser_1.authenticate, (0, validatePayload_1.validateBody)(schemas_1.progressSchema), studyPlan_controller_1.updateProgress);
+router.post('/:planId/rating', requireUser_1.authenticate, (0, validatePayload_1.validateBody)(schemas_1.ratingSchema), studyPlan_controller_1.ratePlan);
+exports.default = router;

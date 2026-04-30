@@ -1,16 +1,17 @@
 # StudyPlan Hub
 
-StudyPlan Hub is a web-based application designed to help students manage their study schedules and daily tasks in an efficient way. It allows users to create, organize, and track their study plans, helping improve productivity and consistency through a simple and user-friendly interface.
+StudyPlan Hub is a web application for creating, following, rating, and tracking structured study plans. It helps learners turn large goals into daily tasks and keep progress visible in one place.
 
 ---
 
 ## Features
 
-* Create and manage daily study plans
-* Track task completion and progress
-* Improve productivity with structured scheduling
-* User authentication system (if implemented)
-* Responsive design for different devices
+* User registration and login
+* Create study plans with day-wise tasks
+* Browse and search community study plans
+* Follow plans and track progress
+* Rate plans
+* Responsive frontend
 
 ---
 
@@ -22,109 +23,117 @@ Frontend:
 * CSS
 * JavaScript
 
-Backend :
+Backend:
 
 * Node.js
 * Express.js
+* TypeScript
 
-Database :
+Database:
 
-* MongoDB / MySQL
+* PostgreSQL / Neon
+
+Deployment:
+
+* Render
 
 ---
 
 ## Project Structure
 
-StudyPlanHub/
-│── frontend/
-│── backend/
-│── README.md
-│── package.json
+```text
+client/
+  assets/
+    scripts/
+    styles/
+  pages/
+server/
+  src/
+  dist/
+tests/
+  api-smoke.js
+  auth-flow.js
+  database-flow.js
+  frontend-assets.js
+  full-flow.js
+```
 
 ---
 
-## Installation and Setup
+## Test Scripts
 
-1. Clone the repository:
+The JavaScript test files are grouped in the `tests` folder.
 
-```bash
-git clone https://github.com/Aryan0l/StudyPlanHub.git
+```powershell
+node tests\auth-flow.js
+node tests\api-smoke.js
+node tests\database-flow.js
+node tests\full-flow.js
+node tests\frontend-assets.js
 ```
 
-2. Navigate to project folder:
+Use deployed URLs when needed:
 
-```bash
-cd StudyPlanHub
+```powershell
+$env:API_BASE_URL = "https://studyplanhub-backend.onrender.com/api"
+$env:FRONTEND_URL = "https://studyplanhub-frontend.onrender.com"
+node tests\frontend-assets.js
 ```
 
-3. Install dependencies:
+---
 
-```bash
+## Local Setup
+
+Install backend dependencies:
+
+```powershell
+cd server
 npm install
-```
-
-4. Start the server:
-
-```bash
+npm run build
 npm start
 ```
 
-5. Open in browser:
+Serve the frontend:
 
-```bash
+```powershell
+cd client
+npm install
+npm start
+```
+
+Frontend:
+
+```text
 http://localhost:3000
+```
+
+Backend:
+
+```text
+http://localhost:5174/api
 ```
 
 ---
 
-## Screenshots
-
-### Register Page
-![Register Page](screenshots/RegisterPage.png)
-
-### Login Page
-![Login Page](screenshots/LoginPage.png)
-
-### Explore Page
-![Explore Page](screenshots/ExplorePage.png)
-
-### About Page
-![About Page](screenshots/AboutPage1.png)
-
-![About Page2](screenshots/AboutPage2.png)
-
 ## Live Demo
 
-Add your deployed project link here
+Frontend: https://studyplanhub-frontend.onrender.com
+
+Backend: https://studyplanhub-backend.onrender.com
+
+Health check: https://studyplanhub-backend.onrender.com/api/health
 
 ---
 
 ## Future Improvements
 
 * Add reminders and notifications
-* Add dark mode
-* Add mobile app version
-* Add AI-based study recommendations
-
----
-
-## Contributing
-
-Contributions are welcome. You can fork this repository and submit a pull request.
-
----
-
-## License
-
-This project is licensed under the MIT License.
+* Add AI-generated study plans
+* Add profile customization
+* Add learning analytics
 
 ---
 
 ## Author
 
 Aryan Raj
-GitHub: https://github.com/Aryan0l
-
----
-
-If you find this project useful, you can give it a star on GitHub.

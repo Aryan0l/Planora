@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - StudyPlan Hub</title>
+    <link rel="stylesheet" href="../assets/styles/studyplan-theme.css" />
+  </head>
+  <body data-page="join">
+    <nav class="topline">
+      <div class="topline-shell">
+        <div class="identity-block">
+          <a href="../index.html" class="identity-link">
+            <span class="identity-mark">SP</span>
+            <span class="identity-copy">
+              <strong>StudyPlan Hub</strong>
+              <span>Structured learning with community momentum</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="guest-links" id="guestNav">
+          <a href="../index.html" class="nav-link">Explore</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <a href="./signin.html" class="nav-link">Login</a>
+          <a href="./join.html" class="nav-link active">Register</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page-shell compact">
+      <div class="entry-layout">
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Create Your Account</span>
+            <h1>Join a library of plans built by people who have done the work.</h1>
+            <p>
+              Start following high-signal study plans, publish your own structure, and turn
+              vague goals into something daily and tangible.
+            </p>
+          </div>
+
+          <aside class="hero-panel">
+            <div class="entry-feature">
+              <strong>Share what you know</strong>
+              <span>Publish study plans that break a big topic into days people can actually follow.</span>
+            </div>
+            <div class="entry-feature">
+              <strong>Learn with momentum</strong>
+              <span>Follow creators, rate useful plans, and keep your own progress easy to revisit.</span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="entry-panel">
+          <h1>Register</h1>
+          <p class="entry-subtitle">Create your account to start building and following plans.</p>
+
+          <div class="message"></div>
+
+          <form id="registerForm" class="entry-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="At least 8 characters" required />
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+          </form>
+
+          <div class="entry-footer">
+            <p>
+              Already have an account?
+              <a href="./signin.html">Login here</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="../assets/scripts/services/studyplanGateway.js"></script>
+    <script src="../assets/scripts/pages/workspace.js"></script>
+  </body>
+</html>

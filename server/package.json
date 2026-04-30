@@ -2,11 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Collaborative study plan platform backend",
-  "main": "dist/server.js",
+  "main": "dist/main.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/main.js"
   },
   "keywords": [],
   "author": "",

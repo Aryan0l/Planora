@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Plan - StudyPlan Hub</title>
+    <link rel="stylesheet" href="../assets/styles/studyplan-theme.css" />
+  </head>
+  <body data-page="planner">
+    <nav class="topline">
+      <div class="topline-shell">
+        <div class="identity-block">
+          <a href="../index.html" class="identity-link">
+            <span class="identity-mark">SP</span>
+            <span class="identity-copy">
+              <strong>StudyPlan Hub</strong>
+              <span>Structured learning with community momentum</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="guest-links" id="guestNav">
+          <a href="../index.html" class="nav-link">Explore</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <a href="./signin.html" class="nav-link">Login</a>
+          <a href="./join.html" class="nav-link">Register</a>
+        </div>
+
+        <div class="member-actions" id="memberNav" style="display: none">
+          <a href="./workspace.html" class="nav-link">Dashboard</a>
+          <a href="./planner.html" class="nav-link active">Create Plan</a>
+          <a href="./overview.html" class="nav-link">About</a>
+          <button id="signoutBtn" class="btn btn-secondary" type="button">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <div class="create-plan-layout">
+        <section>
+          <div class="create-plan-header">
+            <span class="eyebrow">Publish a Study Path</span>
+            <h1>Create a study plan people can actually follow.</h1>
+            <p>
+              Break a larger goal into days, give each step a clean action, and make the
+              whole thing useful enough that someone else can pick it up tomorrow.
+            </p>
+          </div>
+
+          <div class="message"></div>
+
+          <div class="composer-panel">
+            <form id="composerForm">
+              <div class="form-section">
+                <h2>Plan Information</h2>
+                <p class="form-help">Set the promise, subject, and time horizon of the plan.</p>
+
+                <div class="form-group">
+                  <label for="title">Plan Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Example: 30-Day JavaScript Mastery"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    rows="4"
+                    placeholder="Describe what this plan helps learners accomplish and how it is structured."
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                      <option value="">Select a category</option>
+                      <option value="Programming">Programming</option>
+                      <option value="Languages">Languages</option>
+                      <option value="Science">Science</option>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="History">History</option>
+                      <option value="Art">Art</option>
+                      <option value="Music">Music</option>
+                      <option value="Business">Business</option>
+                      <option value="Health">Health</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="durationDays">Duration (Days)</label>
+                    <input type="number" id="durationDays" name="durationDays" min="1" max="365" placeholder="30" required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h2>Daily Tasks</h2>
+                <p class="form-help">Add the day-by-day tasks learners will actually complete.</p>
+
+                <div id="taskStack" class="task-composer-list"></div>
+
+                <button type="button" class="btn btn-secondary" id="appendTaskBtn">Add Another Day</button>
+              </div>
+
+              <div class="form-actions footer-actions">
+                <button type="submit" class="btn btn-primary">Create Plan</button>
+                <a href="./workspace.html" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <aside class="create-plan-rail">
+          <div class="create-plan-tip">
+            <strong>Keep the title concrete</strong>
+            <span>People decide fast. A clear scope and time frame helps a plan feel trustworthy.</span>
+          </div>
+          <div class="create-plan-tip">
+            <strong>Make each day specific</strong>
+            <span>Short, direct tasks are easier to follow than broad goals that hide the work.</span>
+          </div>
+          <div class="create-plan-tip">
+            <strong>Respect pacing</strong>
+            <span>Good plans feel doable. Let each day build on the previous one without overload.</span>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script src="../assets/scripts/services/studyplanGateway.js"></script>
+    <script src="../assets/scripts/pages/workspace.js"></script>
+  </body>
+</html>
