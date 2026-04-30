@@ -99,15 +99,17 @@ const getUserProfile = async (userId) => {
     if (!user) {
         throw { status: 404, message: 'User not found' };
     }
-    const createdPlans = await userModel.getUserCreatedPlans(userId);
-    const followedPlans = await userModel.getUserFollowedPlans(userId);
+    const ownedPlans = await userModel.getUserCreatedPlans(userId);
+    const savedPlans = await userModel.getUserFollowedPlans(userId);
     return {
         id: user.id,
         name: user.name,
         email: user.email,
         createdAt: user.created_at,
-        createdPlans,
-        followedPlans,
+        ownedPlans,
+        savedPlans,
+        createdPlans: ownedPlans,
+        followedPlans: savedPlans,
     };
 };
 exports.getUserProfile = getUserProfile;
