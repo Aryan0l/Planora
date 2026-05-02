@@ -544,32 +544,12 @@ async function hydrateWorkspace() {
 
           <div class="learner-info">
             <div class="learner-row">
-              <span class="learner-row-label">Name</span>
-              <span class="learner-row-value">${escapeHtml(profile.name)}</span>
-            </div>
-            <div class="learner-row">
-              <span class="learner-row-label">Email</span>
-              <span class="learner-row-value">${escapeHtml(profile.email)}</span>
-            </div>
-            <div class="learner-row">
               <span class="learner-row-label">Member Since</span>
               <span class="learner-row-value">${escapeHtml(joinedDate)}</span>
             </div>
             <div class="learner-row">
-              <span class="learner-row-label">Plans Created</span>
-              <span class="learner-row-value">${stats.createdCount}</span>
-            </div>
-            <div class="learner-row">
-              <span class="learner-row-label">Plans Followed</span>
-              <span class="learner-row-value">${stats.followedCount}</span>
-            </div>
-            <div class="learner-row">
               <span class="learner-row-label">Active Plans</span>
               <span class="learner-row-value">${stats.activePlans}</span>
-            </div>
-            <div class="learner-row">
-              <span class="learner-row-label">Completed Plans</span>
-              <span class="learner-row-value">${stats.completedPlans}</span>
             </div>
             <div class="learner-row">
               <span class="learner-row-label">Average Progress</span>

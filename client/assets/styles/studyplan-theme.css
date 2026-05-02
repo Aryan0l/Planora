@@ -1180,6 +1180,7 @@ body[data-page='home'] .page-shell {
 
 .learner-email {
   color: var(--text-soft);
+  overflow-wrap: anywhere;
 }
 
 .learner-info {
@@ -1208,6 +1209,7 @@ body[data-page='home'] .page-shell {
 .learner-row-value {
   text-align: right;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .studio-study-card {
@@ -1783,6 +1785,40 @@ body[data-page='home'] .page-shell {
   .composer-panel,
   .search-section {
     padding: 1.15rem;
+  }
+
+  .studio-section {
+    border-radius: 24px;
+  }
+
+  .learner-summary {
+    gap: 0.75rem;
+  }
+
+  .learner-identity,
+  .learner-stats {
+    padding: 1rem;
+  }
+
+  .learner-identity {
+    text-align: left;
+  }
+
+  .learner-name {
+    font-size: 1.2rem;
+  }
+
+  .learner-row {
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .learner-info .learner-row {
+    display: grid;
+  }
+
+  .learner-info .learner-row-value {
+    text-align: left;
   }
 
   .hero-copy h1,
