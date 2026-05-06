@@ -125,6 +125,26 @@ Health check: https://planora-paui-backend.onrender.com/api/health
 
 ---
 
+## Screenshots
+
+### Explore Page
+
+![Explore Page](screenshots/ExplorePage.png)
+
+### About Page
+
+![About Page 1](screenshots/AboutPage1.png)
+
+![About Page 2](screenshots/AboutPage2.png)
+
+### Authentication Pages
+
+![Login Page](screenshots/LoginPage.png)
+
+![Register Page](screenshots/RegisterPage.png)
+
+---
+
 ## Future Improvements
 
 * Add reminders and notifications
