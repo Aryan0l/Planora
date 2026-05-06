@@ -136,4 +136,4 @@ Health check: https://planora-paui-backend.onrender.com/api/health
 
 ## Author
 
-Aryan Raj
+Aryan Rajput
